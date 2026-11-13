@@ -22,7 +22,9 @@ import {
   SpeakerHigh,
   Image as ImageIcon,
   Code,
-  ArrowsSplit
+  ArrowsSplit,
+  TerminalWindow,
+  Globe
 } from "@phosphor-icons/react";
 
 // Project dossier definitions mapping to dynamic JSON contents
@@ -67,6 +69,19 @@ const projectMatchOrder = [
     impact: "Established a sub-second obstacle-to-voice routing loop and remote caregiver tracking capability.",
   },
   {
+    name: "CopyTerm",
+    category: "embedded",
+    iconType: "terminal",
+    problemSolved: "Manual terminal scrollback selection is slow and error-prone, while conventional child processes cannot access an IDE terminal emulator's historical scrollback and lack clear/cls capture boundaries.",
+    features: [
+      "Capture Epoch Model isolating history with clear/cls barrier boundaries",
+      "IDE terminal bridge requesting retained xterm.js buffers (Antigravity & VS Code)",
+      "Multi-tier buffer resolution: IDE Bridge -> tmux pane -> Shell .buf -> Console",
+      "Regex-driven secret redaction pipeline (--redact) & per-session isolation"
+    ],
+    impact: "Delivered single-command (cpt) instant terminal capture to system clipboard with zero cross-terminal data leakage.",
+  },
+  {
     name: "AI-Based Hate Speech and Abusive Language Detection",
     category: "software",
     iconType: "shield",
@@ -106,6 +121,19 @@ const projectMatchOrder = [
     impact: "Minimized travel wait bottlenecks and optimized elevator dispatch routing parameters.",
   },
   {
+    name: "Universal UART Bridge",
+    category: "embedded",
+    iconType: "cpu",
+    problemSolved: "Manual, error-prone serial port enumeration and baud mismatch diagnostics across varying Linux and Windows host environments when communicating with Raspberry Pi 5 GPIO UART.",
+    features: [
+      "Zero-config auto-detection for RP1 UART (/dev/ttyAMA0), FTDI & COM ports",
+      "Full-duplex TX/RX cross-over communication with common ground isolation",
+      "Dual operational modes: real-time stream listener & 1 Hz heartbeat generator",
+      "Baud rate mismatch detection & auto-reconnect on cable disruption"
+    ],
+    impact: "Eliminated manual serial port mapping and enabled plug-and-play UART communication between Raspberry Pi 5 and host workstations with zero configuration.",
+  },
+  {
     name: "PharosPay",
     category: "software",
     iconType: "wallet",
@@ -130,6 +158,19 @@ const projectMatchOrder = [
       "Next.js and Web3 transaction signing frontends"
     ],
     impact: "Enabled trustless, automated prediction markets on the Pharos Network.",
+  },
+  {
+    name: "The World Files",
+    category: "software",
+    iconType: "globe",
+    problemSolved: "Scattered, undocumented Solana prediction market intelligence, lack of historical trade timeline context, and missing independent educational analysis for World ecosystem users.",
+    features: [
+      "Interactive Bloub vector avatar with pointer gaze tracking & DOM copy interceptors",
+      "Next.js 16 App Router publishing engine statically compiling 38 MDX routes",
+      "Zero-overhead 3D perspective card tilt with cursor-tracked radial glare spotlights",
+      "Curated research coverage across Sports, Crypto, Politics, and Culture market desks"
+    ],
+    impact: "Engineered a high-density dark editorial research archive delivering comprehensive market analysis and interactive avatar telemetry.",
   },
   {
     name: "EVM Wallet Reputation & Risk Analyzer",
@@ -415,54 +456,247 @@ function ProjectDiagram({ index }: { index: number }) {
     case 2:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
-          <circle cx="80" cy="80" r="45" stroke="#292823" strokeWidth="5" />
+          {/* Subtle radar background grid */}
+          <circle cx="80" cy="80" r="54" stroke="#d7d7d7" strokeWidth="0.8" strokeDasharray="2,4" strokeOpacity="0.1" />
+          <line x1="80" y1="22" x2="80" y2="138" stroke="#d7d7d7" strokeWidth="0.8" strokeDasharray="2,3" strokeOpacity="0.12" />
+          <line x1="22" y1="80" x2="138" y2="80" stroke="#d7d7d7" strokeWidth="0.8" strokeDasharray="2,3" strokeOpacity="0.12" />
+
+          {/* Full continuous base loop track */}
+          <circle cx="80" cy="80" r="44" stroke="#00698c" strokeWidth="2.5" strokeOpacity="0.2" />
+
+          {/* Active rotating telemetry loop (properly centered with transformOrigin) */}
           <motion.circle
             cx="80"
             cy="80"
-            r="45"
+            r="44"
             stroke="#00698c"
-            strokeWidth="5"
-            strokeDasharray="160 280"
-            initial={shouldReduceMotion ? { rotate: 0 } : { rotate: -45 }}
-            animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 315 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            className="origin-center"
+            strokeWidth="2.5"
+            strokeDasharray="180 96"
+            strokeLinecap="round"
+            initial={shouldReduceMotion ? { rotate: 0 } : { rotate: 0 }}
+            animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 360 }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+            style={{ transformOrigin: "80px 80px" }}
           />
-          <circle cx="80" cy="80" r="28" stroke="rgba(215,215,215,0.05)" />
-          <line x1="80" y1="20" x2="80" y2="140" strokeDasharray="2,3" />
-          <line x1="20" y1="80" x2="140" y2="80" strokeDasharray="2,3" />
 
-          <text x="80" y="76" fill="#d7d7d7" className="font-mono text-[7px] font-semibold" textAnchor="middle">ARDUINO SIGNAL</text>
-          <text x="80" y="90" fill="#00698c" className="font-mono text-[6px] tracking-wider" textAnchor="middle">TELEMETRY LOOP ACTIVE</text>
+          {/* Inner concentric ring */}
+          <circle cx="80" cy="80" r="28" stroke="#d7d7d7" strokeWidth="0.8" strokeOpacity="0.15" />
+
+          {/* Ultrasonic pulse beacon waves */}
+          <motion.circle
+            cx="80"
+            cy="80"
+            r="16"
+            stroke="#00698c"
+            strokeWidth="0.8"
+            initial={shouldReduceMotion ? { scale: 1, opacity: 0.3 } : { scale: 0.8, opacity: 0.6 }}
+            animate={shouldReduceMotion ? {} : { scale: [0.8, 1.4, 0.8], opacity: [0.6, 0.1, 0.6] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            style={{ transformOrigin: "80px 80px" }}
+          />
+
+          {/* Center telemetry readouts */}
+          <text x="80" y="70" fill="#d7d7d7" className="font-mono text-[5px] font-semibold tracking-wider" textAnchor="middle">
+            ARDUINO SIGNAL
+          </text>
+          <text x="80" y="80" fill="#00698c" className="font-mono text-[5.2px] font-bold tracking-wider" textAnchor="middle">
+            TELEMETRY LOOP ACTIVE
+          </text>
+          <text x="80" y="90" fill="#d7d7d7" fillOpacity="0.5" className="font-mono text-[4px] tracking-wider" textAnchor="middle">
+            800ms ROUTING LOOP
+          </text>
         </svg>
       );
     case 3:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
-          <rect x="15" y="45" width="35" height="25" rx="3" stroke="#292823" />
-          <rect x="62" y="45" width="36" height="25" rx="3" stroke="#00698c" />
-          <rect x="110" y="45" width="35" height="25" rx="3" stroke="#292823" />
-          
+          {/* Subtle background tech grid */}
+          <line x1="20" y1="20" x2="140" y2="20" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.1" />
+          <line x1="20" y1="140" x2="140" y2="140" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.1" />
+
+          {/* Terminal Window (Top) */}
+          <rect x="24" y="16" width="112" height="52" rx="4" stroke="#292823" strokeWidth="1" fill="rgba(41, 40, 35, 0.25)" />
+          {/* Header Bar */}
+          <rect x="24" y="16" width="112" height="13" rx="4" fill="#292823" fillOpacity="0.6" />
+          {/* 3 Terminal Dots */}
+          <circle cx="32" cy="22.5" r="1.8" fill="#ff5f56" />
+          <circle cx="38" cy="22.5" r="1.8" fill="#ffbd2e" />
+          <circle cx="44" cy="22.5" r="1.8" fill="#27c93f" />
+          <text x="80" y="24" fill="#d7d7d7" fillOpacity="0.5" className="font-mono text-[4px]" textAnchor="middle">bash ~ cpt</text>
+
+          {/* Terminal Prompt Line */}
+          <text x="34" y="42" fill="#00698c" className="font-mono text-[7px] font-bold">$ cpt</text>
+          {/* Blinking Cursor */}
+          <motion.rect
+            x="59"
+            y="35"
+            width="4"
+            height="8"
+            fill="#00698c"
+            animate={shouldReduceMotion ? {} : { opacity: [1, 0, 1] }}
+            transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Simulated Terminal Scrollback Lines */}
+          <line x1="34" y1="49" x2="124" y2="49" stroke="#d7d7d7" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="18 4 32 4 12" />
+          <line x1="34" y1="56" x2="102" y2="56" stroke="#00698c" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="22 4 14" />
+
+          {/* Transfer Loop Streams */}
+          {/* Left Downward Stream (Terminal -> Clipboard) */}
+          <path d="M 34 68 L 34 94 Q 34 98 44 98 L 48 98" stroke="#00698c" strokeWidth="1.2" strokeOpacity="0.35" fill="none" />
           <motion.path
-            initial={shouldReduceMotion ? { strokeDashoffset: 0 } : { strokeDashoffset: 20 }}
-            animate={shouldReduceMotion ? { strokeDashoffset: 0 } : { strokeDashoffset: 0 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-            strokeDasharray="4,4"
-            d="M 50 57.5 L 62 57.5 M 98 57.5 L 110 57.5"
-            stroke="#d7d7d7"
-            strokeWidth="1"
+            d="M 34 68 L 34 94 Q 34 98 44 98 L 48 98"
+            stroke="#00698c"
+            strokeWidth="1.8"
+            strokeDasharray="4 6"
+            fill="none"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [20, 0] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
           />
 
-          <text x="32" y="60" fill="#d7d7d7" className="font-mono text-[4.5px]" textAnchor="middle">INPUT DOM</text>
-          <text x="80" y="60" fill="#00698c" className="font-mono text-[4.5px] font-semibold" textAnchor="middle">FASTAPI classifier</text>
-          <text x="127" y="60" fill="#d7d7d7" className="font-mono text-[4.5px]" textAnchor="middle">LABEL MASK</text>
+          {/* Right Upward Return Stream (Clipboard -> Ready Loop) */}
+          <path d="M 112 98 L 116 98 Q 126 98 126 94 L 126 68" stroke="#d7d7d7" strokeWidth="1.2" strokeOpacity="0.25" fill="none" />
+          <motion.path
+            d="M 112 98 L 116 98 Q 126 98 126 94 L 126 68"
+            stroke="#d7d7d7"
+            strokeWidth="1.8"
+            strokeDasharray="4 6"
+            fill="none"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [0, 20] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+          />
 
-          <path d="M 80 70 L 80 110" stroke="#00698c" strokeWidth="1.5" />
-          <circle cx="80" cy="110" r="3.5" fill="#00698c" />
-          <text x="80" y="125" fill="#d7d7d7" className="font-mono text-[5px]" textAnchor="middle">INLINE DOM CLASSIFIER ACTIVE</text>
+          {/* Central Loop Hub & Pulse */}
+          <circle cx="80" cy="78" r="9" fill="#080807" stroke="#00698c" strokeWidth="1" />
+          <motion.circle
+            cx="80"
+            cy="78"
+            r="6.5"
+            stroke="#00698c"
+            strokeWidth="1.5"
+            strokeDasharray="18 20"
+            strokeLinecap="round"
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+            style={{ transformOrigin: "80px 78px" }}
+          />
+          <motion.circle
+            cx="80"
+            cy="78"
+            r="2"
+            fill="#00698c"
+            animate={shouldReduceMotion ? {} : { scale: [0.8, 1.25, 0.8], opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            style={{ transformOrigin: "80px 78px" }}
+          />
+
+          {/* Clipboard Card (Bottom) */}
+          <rect x="48" y="90" width="64" height="48" rx="4" stroke="#00698c" strokeWidth="1" fill="rgba(0, 105, 140, 0.06)" />
+          {/* Clipboard Clip */}
+          <rect x="65" y="86" width="30" height="7" rx="2" fill="#080807" stroke="#292823" strokeWidth="1" />
+          <circle cx="80" cy="89.5" r="1.5" fill="#00698c" />
+
+          {/* Glowing Checkmark */}
+          <motion.path
+            d="M 71 107 L 77 113 L 89 101"
+            stroke="#00698c"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            animate={shouldReduceMotion ? {} : { opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* Clean Clipboard Text */}
+          <text x="80" y="124" fill="#ffffff" className="font-mono text-[5.5px] font-bold tracking-wider" textAnchor="middle">
+            CLIPBOARD
+          </text>
+          <text x="80" y="132" fill="#00698c" className="font-mono text-[4px] font-semibold tracking-widest uppercase" textAnchor="middle">
+            COPIED 100%
+          </text>
+
+          {/* Bottom Telemetry Footer */}
+          <text x="80" y="151" fill="#d7d7d7" fillOpacity="0.65" className="font-mono text-[4.2px] tracking-wider" textAnchor="middle">
+            INSTANT TERMINAL CAPTURE LOOP
+          </text>
         </svg>
       );
     case 4:
+      return (
+        <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
+          {/* Top pipeline: Input DOM -> FastAPI Classifier -> Label Mask */}
+          <rect x="10" y="38" width="36" height="24" rx="3" stroke="#292823" fill="rgba(41, 40, 35, 0.2)" />
+          <rect x="54" y="36" width="52" height="28" rx="3" stroke="#00698c" strokeWidth="1.2" fill="rgba(0, 105, 140, 0.08)" />
+          <rect x="114" y="38" width="36" height="24" rx="3" stroke="#292823" fill="rgba(41, 40, 35, 0.2)" />
+
+          {/* Forward connection lines */}
+          <line x1="46" y1="50" x2="54" y2="50" stroke="#00698c" strokeWidth="1" strokeOpacity="0.5" />
+          <line x1="106" y1="50" x2="114" y2="50" stroke="#00698c" strokeWidth="1" strokeOpacity="0.5" />
+
+          {/* Animated forward data packets */}
+          <motion.line
+            x1="46" y1="50" x2="54" y2="50"
+            stroke="#00698c" strokeWidth="1.5"
+            strokeDasharray="2,3"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [0, -10] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.line
+            x1="106" y1="50" x2="114" y2="50"
+            stroke="#00698c" strokeWidth="1.5"
+            strokeDasharray="2,3"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [0, -10] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Labels for pipeline stages - cleanly fitted inside their respective boxes */}
+          <text x="28" y="52" fill="#d7d7d7" className="font-mono text-[4.2px]" textAnchor="middle">
+            INPUT DOM
+          </text>
+          <text x="80" y="52" fill="#00698c" className="font-mono text-[4.4px] font-bold tracking-tight" textAnchor="middle">
+            FASTAPI CLASSIFIER
+          </text>
+          <text x="132" y="52" fill="#d7d7d7" className="font-mono text-[4.2px]" textAnchor="middle">
+            LABEL MASK
+          </text>
+
+          {/* Closed Real-time DOM Filtering Feedback Loop */}
+          <path
+            d="M 132 62 L 132 94 Q 132 100 124 100 L 36 100 Q 28 100 28 94 L 28 62"
+            stroke="#00698c"
+            strokeWidth="1.2"
+            strokeOpacity="0.3"
+            fill="none"
+          />
+          <motion.path
+            d="M 132 62 L 132 94 Q 132 100 124 100 L 36 100 Q 28 100 28 94 L 28 62"
+            stroke="#00698c"
+            strokeWidth="1.4"
+            strokeDasharray="6,8"
+            fill="none"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [28, 0] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Loop Interceptor Node in Center */}
+          <rect x="52" y="88" width="56" height="24" rx="3" fill="#080807" stroke="#00698c" strokeWidth="1" />
+          <circle cx="80" cy="98" r="2.5" fill="#00698c" />
+          <motion.circle
+            cx="80" cy="98" r="5"
+            stroke="#00698c" strokeWidth="0.6" strokeDasharray="2,2"
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            style={{ transformOrigin: "80px 98px" }}
+          />
+          <text x="80" y="122" fill="#d7d7d7" className="font-mono text-[4.8px] font-semibold tracking-wider" textAnchor="middle">
+            INLINE DOM CLASSIFIER ACTIVE
+          </text>
+          <text x="80" y="131" fill="#00698c" className="font-mono text-[4px] tracking-wider uppercase" textAnchor="middle">
+            REAL-TIME MASKING LOOP // 96% ACC
+          </text>
+        </svg>
+      );
+    case 5:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <rect x="15" y="25" width="40" height="20" rx="2" stroke="#292823" />
@@ -484,7 +718,7 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="122.5" y="70" fill="#00698c" className="font-mono text-[3.5px]" textAnchor="middle">LATENCY: &lt;1MS</text>
         </svg>
       );
-    case 5:
+    case 6:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <line x1="40" y1="20" x2="40" y2="140" stroke="#292823" strokeWidth="2" />
@@ -533,7 +767,114 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="80" y="140" fill="#00698c" className="font-mono text-[4.5px] uppercase tracking-wider" textAnchor="middle">35% Wait Reduction</text>
         </svg>
       );
-    case 6:
+    case 7:
+      return (
+        <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
+          {/* Subtle background tech grid */}
+          <line x1="20" y1="20" x2="140" y2="20" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.1" />
+          <line x1="20" y1="140" x2="140" y2="140" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.1" />
+          <line x1="80" y1="20" x2="80" y2="140" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.1" />
+
+          {/* Section Headers */}
+          <text x="80" y="24" fill="#00698c" className="font-mono text-[4.8px] font-bold tracking-wider" textAnchor="middle">
+            FULL-DUPLEX UART LOOP
+          </text>
+          <text x="80" y="32" fill="#d7d7d7" fillOpacity="0.6" className="font-mono text-[3.8px] tracking-wide" textAnchor="middle">
+            ZERO-CONFIG SERIAL BRIDGE
+          </text>
+
+          {/* Left Block: Host Station (Ubuntu / Windows FTDI) */}
+          <rect x="8" y="44" width="40" height="72" rx="3" stroke="#292823" strokeWidth="1" fill="rgba(41, 40, 35, 0.25)" />
+          <rect x="8" y="44" width="40" height="15" rx="3" fill="#292823" fillOpacity="0.5" />
+          <text x="28" y="54" fill="#d7d7d7" className="font-mono text-[4px] font-bold" textAnchor="middle">HOST STATION</text>
+          <text x="28" y="66" fill="#00698c" className="font-mono text-[3.4px] font-semibold" textAnchor="middle">FTDI (0x0403)</text>
+
+          {/* Host Pinouts */}
+          <text x="14" y="80" fill="#d7d7d7" className="font-mono text-[3.5px]">TXD [ORANGE]</text>
+          <circle cx="48" cy="78" r="2" fill="#00698c" />
+          
+          <text x="14" y="96" fill="#d7d7d7" className="font-mono text-[3.5px]">RXD [YELLOW]</text>
+          <circle cx="48" cy="94" r="2" fill="#d7d7d7" />
+
+          <text x="14" y="108" fill="#d7d7d7" fillOpacity="0.5" className="font-mono text-[3.2px]">GND [BLACK]</text>
+          <circle cx="48" cy="106" r="1.5" fill="#292823" stroke="#d7d7d7" strokeWidth="0.5" />
+
+          {/* Right Block: Raspberry Pi 5 (RP1 Controller) */}
+          <rect x="112" y="44" width="40" height="72" rx="3" stroke="#00698c" strokeWidth="1" fill="rgba(0, 105, 140, 0.06)" />
+          <rect x="112" y="44" width="40" height="15" rx="3" fill="#00698c" fillOpacity="0.25" />
+          <text x="132" y="54" fill="#ffffff" className="font-mono text-[4px] font-bold" textAnchor="middle">RASPBERRY PI 5</text>
+          <text x="132" y="66" fill="#00698c" className="font-mono text-[3.4px] font-semibold" textAnchor="middle">RP1: /dev/ttyAMA0</text>
+
+          {/* Pi 5 Pinouts */}
+          <circle cx="112" cy="78" r="2" fill="#00698c" />
+          <text x="118" y="80" fill="#d7d7d7" className="font-mono text-[3.5px]">PIN 10 (RXD0)</text>
+
+          <circle cx="112" cy="94" r="2" fill="#d7d7d7" />
+          <text x="118" y="96" fill="#d7d7d7" className="font-mono text-[3.5px]">PIN 8 (TXD0)</text>
+
+          <circle cx="112" cy="106" r="1.5" fill="#292823" stroke="#d7d7d7" strokeWidth="0.5" />
+          <text x="118" y="108" fill="#d7d7d7" fillOpacity="0.5" className="font-mono text-[3.2px]">PIN 6 (GND)</text>
+
+          {/* UART TX/RX Cross-Over Lines */}
+          {/* Top Line: Host TX -> Pi RX */}
+          <line x1="48" y1="78" x2="112" y2="78" stroke="#00698c" strokeWidth="1.2" strokeOpacity="0.4" />
+          <motion.line
+            x1="48" y1="78" x2="112" y2="78"
+            stroke="#00698c" strokeWidth="1.8"
+            strokeDasharray="4,6"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [0, -20] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Bottom Line: Pi TX -> Host RX */}
+          <line x1="112" y1="94" x2="48" y2="94" stroke="#d7d7d7" strokeWidth="1.2" strokeOpacity="0.4" />
+          <motion.line
+            x1="112" y1="94" x2="48" y2="94"
+            stroke="#d7d7d7" strokeWidth="1.8"
+            strokeDasharray="4,6"
+            animate={shouldReduceMotion ? {} : { strokeDashoffset: [0, -20] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Common Ground Reference */}
+          <line x1="48" y1="106" x2="112" y2="106" stroke="#292823" strokeWidth="0.8" strokeDasharray="2,2" />
+
+          {/* Center Diagnostic Loop Hub */}
+          <circle cx="80" cy="86" r="17" fill="#080807" stroke="#00698c" strokeWidth="1" />
+          <circle cx="80" cy="86" r="13" stroke="#00698c" strokeOpacity="0.3" strokeWidth="1" />
+          
+          {/* Rotating Loop Indicator */}
+          <motion.circle
+            cx="80" cy="86" r="13"
+            stroke="#00698c" strokeWidth="1.8"
+            strokeDasharray="40 42"
+            strokeLinecap="round"
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+            style={{ transformOrigin: "80px 86px" }}
+          />
+
+          {/* Heartbeat pulse center node */}
+          <motion.circle
+            cx="80" cy="80" r="1.8"
+            fill="#00698c"
+            animate={shouldReduceMotion ? {} : { opacity: [0.3, 1, 0.3], scale: [0.8, 1.25, 0.8] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+            style={{ transformOrigin: "80px 80px" }}
+          />
+          <text x="80" y="88" fill="#ffffff" className="font-mono text-[3.8px] font-bold" textAnchor="middle">115.2K</text>
+          <text x="80" y="94" fill="#00698c" className="font-mono text-[3.1px] font-semibold tracking-wider" textAnchor="middle">1Hz PULSE</text>
+
+          {/* Bottom Telemetry Footer */}
+          <text x="80" y="132" fill="#d7d7d7" className="font-mono text-[4.2px] font-medium" textAnchor="middle">
+            /dev/ttyAMA0 &lt;-&gt; FTDI USB
+          </text>
+          <text x="80" y="140" fill="#00698c" className="font-mono text-[3.6px] tracking-wider uppercase" textAnchor="middle">
+            3.3V TTL LOGIC PROTECTED
+          </text>
+        </svg>
+      );
+    case 8:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <circle cx="80" cy="50" r="16" stroke="#00698c" strokeWidth="1.5" />
@@ -557,7 +898,7 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="120" y="134" fill="#d7d7d7" className="font-mono text-[4.5px]" textAnchor="middle">MERCHANT 02</text>
         </svg>
       );
-    case 7:
+    case 9:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <rect x="25" y="25" width="110" height="110" rx="3" stroke="#292823" />
@@ -574,7 +915,164 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="80" y="127" fill="#00698c" className="font-mono text-[4.5px]" textAnchor="middle">LIQUIDITY DEPTH MATCHED</text>
         </svg>
       );
-    case 8:
+    case 10:
+      return (
+        <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="twfGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#63D8F2" />
+              <stop offset="50%" stopColor="#00698c" />
+              <stop offset="100%" stopColor="#8668D9" />
+            </linearGradient>
+            <radialGradient id="twfGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#63D8F2" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#080807" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+
+          {/* Background tech coordinate lines */}
+          <line x1="20" y1="14" x2="140" y2="14" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.08" />
+          <line x1="20" y1="146" x2="140" y2="146" stroke="#d7d7d7" strokeWidth="0.5" strokeDasharray="1,4" strokeOpacity="0.08" />
+
+          {/* Section Headers - Cleanly at the very top */}
+          <text x="80" y="16" fill="#00698c" className="font-mono text-[4.6px] font-bold tracking-widest uppercase" textAnchor="middle">
+            THE WORLD ARCHIVE
+          </text>
+          <text x="80" y="23" fill="#d7d7d7" fillOpacity="0.5" className="font-mono text-[3.4px] tracking-wide" textAnchor="middle">
+            SOLANA PREDICTION ORACLE LOOP
+          </text>
+
+          {/* Soft ambient center underglow */}
+          <circle cx="80" cy="74" r="38" fill="url(#twfGlow)" />
+
+          {/* Outer Dashed Prediction Orbit (r = 44) */}
+          <circle cx="80" cy="74" r="44" stroke="#292823" strokeWidth="0.8" strokeDasharray="2,3" />
+
+          {/* High-speed animated consensus laser packet loop */}
+          <motion.circle
+            cx="80"
+            cy="74"
+            r="44"
+            stroke="url(#twfGradient)"
+            strokeWidth="1.6"
+            strokeDasharray="24 38"
+            strokeLinecap="round"
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            style={{ transformOrigin: "80px 74px" }}
+          />
+
+          {/* Digital Hologram Globe Sphere (r = 30) */}
+          <circle cx="80" cy="74" r="30" stroke="#00698c" strokeWidth="1" strokeOpacity="0.5" fill="rgba(8, 8, 7, 0.6)" />
+          {/* Globe Meridians (GlobeMark geometry) */}
+          <ellipse cx="80" cy="74" rx="16" ry="30" stroke="#00698c" strokeOpacity="0.3" strokeWidth="0.7" />
+          <ellipse cx="80" cy="74" rx="30" ry="11" stroke="#00698c" strokeOpacity="0.3" strokeWidth="0.7" />
+          <line x1="50" y1="74" x2="110" y2="74" stroke="#d7d7d7" strokeOpacity="0.15" strokeWidth="0.6" strokeDasharray="2,2" />
+          <line x1="80" y1="44" x2="80" y2="104" stroke="#d7d7d7" strokeOpacity="0.15" strokeWidth="0.6" strokeDasharray="2,2" />
+
+          {/* Interactive Bloub Mascot Core (center 80, 74) */}
+          <g>
+            {/* Bloub cute translucent silhouette body */}
+            <circle cx="80" cy="74" r="14" fill="#080807" stroke="#63D8F2" strokeWidth="1" strokeOpacity="0.7" />
+            
+            {/* Iconic Bloub Dual Pill-Eyes (from BloubAvatar.tsx) */}
+            {/* Left Eye */}
+            <ellipse cx="76.2" cy="72" rx="2.2" ry="4" fill="#ffffff" />
+            {/* Right Eye */}
+            <ellipse cx="83.8" cy="72" rx="2.2" ry="4" fill="#ffffff" />
+
+            {/* Left Pupil - Gaze Tracking Animation */}
+            <motion.ellipse
+              cx="76.5"
+              cy="72.2"
+              rx="1.4"
+              ry="2.4"
+              fill="#00698c"
+              animate={shouldReduceMotion ? {} : { cx: [75.6, 77.2, 76.5] }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            {/* Right Pupil - Gaze Tracking Animation */}
+            <motion.ellipse
+              cx="84.1"
+              cy="72.2"
+              rx="1.4"
+              ry="2.4"
+              fill="#00698c"
+              animate={shouldReduceMotion ? {} : { cx: [83.2, 84.8, 84.1] }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+            />
+
+            {/* Eye Gleams */}
+            <circle cx="75.8" cy="70.5" r="0.6" fill="#63D8F2" />
+            <circle cx="83.4" cy="70.5" r="0.6" fill="#63D8F2" />
+
+            {/* Subtle smiling expression curve */}
+            <path d="M 77.5 79.5 Q 80 81.5 82.5 79.5" stroke="#63D8F2" strokeWidth="0.8" strokeLinecap="round" fill="none" />
+          </g>
+
+          {/* Specular 4-Point Star Sparkle (from OrbMark.tsx) */}
+          <g style={{ transformOrigin: "64px 58px" }}>
+            <line x1="60" y1="58" x2="68" y2="58" stroke="#63D8F2" strokeWidth="0.8" opacity="0.8" />
+            <line x1="64" y1="54" x2="64" y2="62" stroke="#63D8F2" strokeWidth="0.8" opacity="0.8" />
+            <motion.circle
+              cx="64"
+              cy="58"
+              r="2.5"
+              fill="#63D8F2"
+              animate={shouldReduceMotion ? {} : { opacity: [0.3, 0.9, 0.3], scale: [0.8, 1.25, 0.8] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transformOrigin: "64px 58px" }}
+            />
+          </g>
+
+          {/* 4 Prediction Market Category Tags (Clear, spacious, zero overlap) */}
+          {/* Top: Crypto */}
+          <g>
+            <line x1="80" y1="36" x2="80" y2="44" stroke="#00698c" strokeWidth="0.8" strokeOpacity="0.5" />
+            <rect x="63" y="26" width="34" height="10" rx="3" fill="#080807" stroke="#00698c" strokeWidth="0.9" />
+            <circle cx="68" cy="31" r="1.3" fill="#63D8F2" />
+            <text x="81" y="32.8" fill="#63D8F2" className="font-mono text-[3.6px] font-bold tracking-wider" textAnchor="middle">
+              CRYPTO
+            </text>
+          </g>
+
+          {/* Right: Politics */}
+          <g>
+            <line x1="120" y1="74" x2="124" y2="74" stroke="#292823" strokeWidth="0.8" />
+            <rect x="120" y="69" width="32" height="10" rx="3" fill="#080807" stroke="#292823" strokeWidth="0.8" />
+            <text x="136" y="75.8" fill="#d7d7d7" className="font-mono text-[3.5px] font-semibold tracking-wider" textAnchor="middle">
+              POLITICS
+            </text>
+          </g>
+
+          {/* Bottom: Sports */}
+          <g>
+            <line x1="80" y1="104" x2="80" y2="108" stroke="#292823" strokeWidth="0.8" />
+            <rect x="65" y="108" width="30" height="10" rx="3" fill="#080807" stroke="#292823" strokeWidth="0.8" />
+            <text x="80" y="114.8" fill="#d7d7d7" className="font-mono text-[3.5px] font-semibold tracking-wider" textAnchor="middle">
+              SPORTS
+            </text>
+          </g>
+
+          {/* Left: Culture */}
+          <g>
+            <line x1="36" y1="74" x2="40" y2="74" stroke="#292823" strokeWidth="0.8" />
+            <rect x="8" y="69" width="32" height="10" rx="3" fill="#080807" stroke="#292823" strokeWidth="0.8" />
+            <text x="24" y="75.8" fill="#d7d7d7" className="font-mono text-[3.5px] font-semibold tracking-wider" textAnchor="middle">
+              CULTURE
+            </text>
+          </g>
+
+          {/* Bottom Telemetry Footer - Generous padding */}
+          <text x="80" y="133" fill="#ffffff" className="font-mono text-[4.4px] font-bold tracking-wider" textAnchor="middle">
+            38 STATIC MDX ROUTES
+          </text>
+          <text x="80" y="141" fill="#00698c" className="font-mono text-[3.6px] tracking-widest uppercase font-semibold" textAnchor="middle">
+            REAL-TIME ORACLE CONSENSUS // SOLANA
+          </text>
+        </svg>
+      );
+    case 11:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <circle cx="80" cy="80" r="30" stroke="#292823" />
@@ -590,7 +1088,7 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="80" y="87" fill="#00698c" className="font-mono text-[5px] uppercase font-bold" textAnchor="middle">GRADE: 98% TRUST</text>
         </svg>
       );
-    case 9:
+    case 12:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <rect x="55" y="15" width="50" height="130" rx="3" stroke="#292823" />
@@ -618,7 +1116,7 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="80" y="132" fill="#d7d7d7" className="font-mono text-[4px]" textAnchor="middle">PEDESTRIAN OVERRIDE</text>
         </svg>
       );
-    case 10:
+    case 13:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <motion.path
@@ -647,7 +1145,7 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="80" y="133" fill="#00698c" className="font-mono text-[4.5px]" textAnchor="middle">EMOTION MATRIX LOADED</text>
         </svg>
       );
-    case 11:
+    case 14:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <rect x="15" y="30" width="36" height="40" rx="2" stroke="#292823" />
@@ -670,7 +1168,7 @@ function ProjectDiagram({ index }: { index: number }) {
           <text x="80" y="112" fill="#d7d7d7" className="font-mono text-[4.5px]" textAnchor="middle">STORYBOARD EXPORT TIMELINE</text>
         </svg>
       );
-    case 12:
+    case 15:
       return (
         <svg className="w-full h-full stroke-white/5 fill-none" viewBox="0 0 160 160">
           <rect x="25" y="25" width="50" height="50" rx="1" stroke="#292823" />
@@ -708,6 +1206,8 @@ const getProjectIcon = (type: string) => {
     case "speaker": return <SpeakerHigh className="w-5 h-5 text-[#00698c]" />;
     case "image": return <ImageIcon className="w-5 h-5 text-[#00698c]" />;
     case "brackets": return <Code className="w-5 h-5 text-[#00698c]" />;
+    case "terminal": return <TerminalWindow className="w-5 h-5 text-[#00698c]" />;
+    case "globe": return <Globe className="w-5 h-5 text-[#00698c]" />;
     default: return <Code className="w-5 h-5 text-[#00698c]" />;
   }
 };
@@ -757,14 +1257,15 @@ function ProductCard({ proj, index }: ProductCardProps) {
         className="sticky top-28 w-full z-10"
       >
         <GlassCard
-          className="p-8 lg:p-12 cursor-default bg-[#080807] border border-white/5 shadow-2xl relative"
+          className="p-6 sm:p-8 lg:p-12 cursor-default bg-[#080807] border border-white/5 shadow-2xl relative overflow-hidden"
           spotlightColor="rgba(0, 105, 140, 0.08)"
+          maxTilt={8}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Details Column */}
             <div className={cn(
-              "lg:col-span-7 flex flex-col justify-between h-full select-none",
+              "lg:col-span-7 flex flex-col justify-between select-none",
               isOdd ? "lg:order-2" : "lg:order-1"
             )}>
               <div>
@@ -795,22 +1296,37 @@ function ProductCard({ proj, index }: ProductCardProps) {
                   </p>
                 </motion.div>
 
-                {/* Specs Split */}
-                <motion.div variants={childVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5 border-y border-white/5 py-4">
-                  <div>
-                    <span className="block text-[10px] font-mono text-[#d7d7d7]/40 uppercase tracking-wider">Performance Telemetry</span>
-                    <span className="text-base sm:text-lg font-mono text-white mt-1 block font-semibold flex items-baseline gap-1">
-                      <Counter value={proj.metricValue} suffix="" />
-                      <span className="text-xs font-sans font-light text-[#d7d7d7]/60">{proj.metricLabel}</span>
+                {/* Performance & Specifications Panel */}
+                <motion.div
+                  variants={childVariants}
+                  className="mb-5 rounded-xl bg-white/[0.02] border border-white/5 p-4 sm:p-5"
+                >
+                  {/* Top row: Performance Telemetry Stat */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pb-3.5 mb-3.5 border-b border-white/5">
+                    <div>
+                      <span className="block text-[10px] font-mono text-[#00698c] uppercase tracking-wider font-semibold">
+                        Performance Telemetry
+                      </span>
+                      <span className="text-base sm:text-lg font-mono text-white mt-0.5 block font-bold flex items-baseline gap-1.5">
+                        <Counter value={proj.metricValue} suffix="" />
+                        <span className="text-xs font-sans font-normal text-[#d7d7d7]/70">{proj.metricLabel}</span>
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-[#d7d7d7]/50 uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/[0.02] border border-white/5">
+                      Spec Verified // {proj.formattedIndex}
                     </span>
                   </div>
+
+                  {/* Key Specifications Grid */}
                   <div>
-                    <span className="block text-[10px] font-mono text-[#d7d7d7]/40 uppercase tracking-wider">Key Specifications</span>
-                    <ul className="text-xs text-[#d7d7d7]/70 space-y-1 mt-1.5 font-light">
+                    <span className="block text-[10px] font-mono text-[#d7d7d7]/50 uppercase tracking-wider mb-2.5">
+                      Key Specifications
+                    </span>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-xs text-[#d7d7d7]/85 font-light">
                       {proj.features.slice(0, 4).map((feat: string, fIdx: number) => (
-                        <li key={fIdx} className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#00698c] shrink-0" />
-                          <span className="truncate">{feat}</span>
+                        <li key={fIdx} className="flex items-start gap-2 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#00698c] shrink-0 mt-1.5 shadow-[0_0_6px_rgba(0,105,140,0.6)]" />
+                          <span className="break-words">{feat}</span>
                         </li>
                       ))}
                     </ul>
@@ -855,7 +1371,7 @@ function ProductCard({ proj, index }: ProductCardProps) {
             <motion.div
               variants={childVariants}
               className={cn(
-                "lg:col-span-5 aspect-video lg:aspect-square bg-white/[0.01] rounded-2xl border border-white/5 flex items-center justify-center relative overflow-hidden p-6 select-none",
+                "lg:col-span-5 aspect-video lg:aspect-square bg-white/[0.01] rounded-2xl border border-white/5 flex items-center justify-center relative overflow-hidden p-4 sm:p-6 select-none",
                 isOdd ? "lg:order-1" : "lg:order-2"
               )}
             >
@@ -910,11 +1426,14 @@ export default function Products() {
       { value: 6, label: "ECU Network" },
       { value: 95, label: "% AUC Prediction" },
       { value: 800, label: "ms Loop Latency" },
+      { value: 100, label: "% Scrollback Retained" },
       { value: 96, label: "% NLP Classifier Acc" },
       { value: 250, label: "ms Priority Alert" },
       { value: 42, label: "% Delay Reduction" },
+      { value: 115200, label: "Baud Zero-Config" },
       { value: 100, label: "% Solidity Safety" },
       { value: 40, label: "% Slippage Reduction" },
+      { value: 38, label: "Static MDX Routes" },
       { value: 98, label: "% EVM Wallet Trust" },
       { value: 100, label: "% Bare-Metal State Acc" },
       { value: 94, label: "% Sentiment Accuracy" },

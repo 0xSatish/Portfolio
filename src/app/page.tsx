@@ -1,9 +1,9 @@
 import LocalNavBar from "@/components/LocalNavBar";
 import Hero from "@/components/Hero";
+import Journey from "@/components/Journey";
 import BentoPillars from "@/components/BentoPillars";
 import Products from "@/components/Products";
 import TechSpecs from "@/components/TechSpecs";
-import Journey from "@/components/Journey";
 import Milestones from "@/components/Milestones";
 import ResumeCenter from "@/components/ResumeCenter";
 import Contact from "@/components/Contact";
@@ -20,10 +20,10 @@ export default function Home() {
       <LocalNavBar />
       <main className="flex-1 w-full relative z-10">
         <Hero />
+        <Journey />
         <BentoPillars />
         <Products />
         <TechSpecs />
-        <Journey />
         <Milestones />
         <ResumeCenter />
         <Contact />

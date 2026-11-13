@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import RadialCursor from "@/components/ui/RadialCursor";
 
@@ -12,6 +13,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const rengok = localFont({
+  src: "../fonts/Rengok.ttf",
+  variable: "--font-rengok",
   display: "swap",
 });
 
@@ -51,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${rengok.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col relative z-10 selection:bg-[#00698c]/30 selection:text-white">
         <RadialCursor />

@@ -29,7 +29,7 @@ export default function Contact() {
     },
     {
       label: "Open Source // GitHub",
-      title: "satish05112003",
+      title: "0xSatish",
       description: "Inspect code repositories, core algorithm scripts, and software toolkits.",
       href: github,
       icon: <GithubLogo className="w-6 h-6 text-[#00698c]" />,

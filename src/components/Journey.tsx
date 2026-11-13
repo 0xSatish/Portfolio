@@ -11,8 +11,20 @@ export default function Journey() {
   // Combined chronological journey list
   const timelineEvents = [
     {
+      year: "July 2026 – Present",
+      type: "experience",
+      badge: "PROFESSIONAL ROLE",
+      title: "Edge AI & Embedded Systems Engineer",
+      subtitle: "Edgentric Labs",
+      department: "Edge AI & Autonomous Systems",
+      location: "Hyderabad, India",
+      metric: "EDGE AI & EMBEDDED SYSTEMS",
+      description: "Working on Edge AI and intelligent autonomous systems by integrating AI software with real-world hardware platforms. Developing embedded applications involving Linux-based systems, firmware, sensors, cameras, and real-time processing. Leveraging C, C++, Python, and hardware-software integration to build intelligent and autonomous computing solutions.",
+    },
+    {
       year: "2022 - 2026",
       type: "education",
+      badge: "ACADEMIC JOURNEY",
       title: "Bachelor of Technology",
       subtitle: "National Institute of Technology Agartala",
       department: "Electronics and Communication Engineering",
@@ -23,6 +35,7 @@ export default function Journey() {
     {
       year: "July 2024 - Aug 2024",
       type: "experience",
+      badge: "PROFESSIONAL INTERNSHIP",
       title: "Machine Learning Intern",
       subtitle: "TechnoHacks EduTech",
       department: "AI & ML Department",
@@ -33,6 +46,7 @@ export default function Journey() {
     {
       year: "2020 - 2022",
       type: "education",
+      badge: "ACADEMIC JOURNEY",
       title: "Senior Secondary Education",
       subtitle: "Sri Sai Aditya Junior College",
       department: "MPC Stream (Maths, Physics, Chemistry)",
@@ -81,7 +95,7 @@ export default function Journey() {
                         <Briefcase className="w-5 h-5" />
                       )}
                       <span className="font-mono text-[10px] uppercase tracking-wider">
-                        {event.type === "education" ? "ACADEMIC JOURNEY" : "PROFESSIONAL INTERNSHIP"}
+                        {event.badge || (event.type === "education" ? "ACADEMIC JOURNEY" : "PROFESSIONAL EXPERIENCE")}
                       </span>
                     </div>
                     <h3 className="text-xl md:text-2xl font-semibold text-white tracking-tight">

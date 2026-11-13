@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GlassCard } from "./ui/GlassCard";
+import { TiltCard } from "./ui/TiltCard";
 import { Medal, ShieldCheck, GraduationCap, Certificate, Trophy } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "motion/react";
 
@@ -74,11 +74,12 @@ export default function Milestones() {
         {accomplishments.map((item, index) => {
           const Icon = item.icon;
           return (
-            <GlassCard
+            <TiltCard
               key={index}
-              className={`${item.span} p-6 md:p-8 flex flex-col justify-between group cursor-default`}
-              spotlightColor="rgba(0, 105, 140, 0.08)"
+              wrapperClassName={`${item.span} h-full`}
+              className="p-6 md:p-8 flex flex-col justify-between cursor-default"
               delay={index * 0.08}
+              maxTilt={14}
             >
               <div className="select-none h-full flex flex-col justify-between">
                 <div>
@@ -102,7 +103,7 @@ export default function Milestones() {
                   {item.description}
                 </p>
               </div>
-            </GlassCard>
+            </TiltCard>
           );
         })}
       </div>

@@ -29,7 +29,7 @@ export default function ResumeCenter() {
     experience: portfolioData.experience.map((exp: any) => ({
       company: exp.company_name,
       role: exp.role_title,
-      period: "July 2024 - Aug 2024",
+      period: exp.start_date && exp.end_date ? `${exp.start_date} – ${exp.end_date}` : "July 2024 - Aug 2024",
       description: exp.description,
     })),
     advancedSkills: portfolioData.skills

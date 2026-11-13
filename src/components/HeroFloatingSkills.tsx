@@ -17,6 +17,7 @@ function getDeterministicFloat(name: string, salt: number, min: number, max: num
 
 interface SkillBubbleProps {
   name: string;
+  cluster: string;
   layer: number;
   initialX: number;
   initialY: number;
@@ -81,13 +82,13 @@ function SkillBubble({
       const threshold = 150; // Cursor approach range (150px)
       if (dist < threshold) {
         const factor = 1 - dist / threshold;
-        const force = factor * 4; // Reduced cursor attraction from 12px -> 4px
+        const force = factor * 4; // Subtle attraction/repulsion
         const targetX = -(dx / (dist || 1)) * force;
         const targetY = -(dy / (dist || 1)) * force;
 
         animate(proximityX, targetX, { type: "spring", stiffness: 90, damping: 18 });
         animate(proximityY, targetY, { type: "spring", stiffness: 90, damping: 18 });
-        animate(proximityScale, 1.01, { type: "spring", stiffness: 90, damping: 18 }); // Scale reduced to 1.01
+        animate(proximityScale, 1.015, { type: "spring", stiffness: 90, damping: 18 });
         setIsProximate(true);
       } else {
         animate(proximityX, 0, { type: "spring", stiffness: 60, damping: 15 });
@@ -105,34 +106,41 @@ function SkillBubble({
   }, [device, shouldReduceMotion, isDragging, proximityX, proximityY, proximityScale]);
 
   // Idle floating animation settings (deterministic to preserve pure rendering)
-  const idleDuration = getDeterministicFloat(name, 1, 4, 8); // 4s to 8s
+  const idleDuration = getDeterministicFloat(name, 1, 5, 8.5); // 5s to 8.5s
   const idleDelay = getDeterministicFloat(name, 2, -8, 0); // Negative offset so they loop asynchronously
 
   // Determine sizes and styling tags by Depth layer
   // Far Layer (0), Middle Layer (1), Front Layer (2)
-  // Adjusted sizes down 20-40% to keep pill heights strictly within 28px-36px
-  // Adjusted opacity down by 35% per layout guidelines
   const layerStyles = useMemo(() => {
     switch (layer) {
-      case 0: // Far (Small Bubble) - 40% smaller
+      case 0: // Far (Subtle depth)
         return {
-          sizeClass: "text-[10px] py-1 px-2.5", // height ~26px
-          opacity: 0.13, // 0.20 * 0.65
-          blurClass: "backdrop-blur-[1px] blur-[0.2px]",
+          sizeClass: "text-[10px] py-1 px-2.5",
+          opacity: 0.72,
+          bgClass: "bg-[#080807]/80",
+          borderClass: "border-[#292823]/90 hover:border-[#00698c]/60",
+          shadowClass: "shadow-[0_2px_8px_rgba(0,0,0,0.5)]",
+          blurClass: "backdrop-blur-sm",
           zIndex: "z-[2]"
         };
-      case 1: // Middle (Medium Bubble) - 30% smaller
+      case 1: // Middle (Standard)
         return {
-          sizeClass: "text-[11px] py-1 px-3", // height ~28px
-          opacity: 0.23, // 0.36 * 0.65
+          sizeClass: "text-[10.5px] sm:text-[11px] py-1 px-3",
+          opacity: 0.85,
+          bgClass: "bg-[#080807]/85",
+          borderClass: "border-[#00698c]/25 hover:border-[#00698c]/75",
+          shadowClass: "shadow-[0_2px_10px_rgba(0,0,0,0.6)]",
           blurClass: "backdrop-blur-md",
           zIndex: "z-[4]"
         };
-      case 2: // Front (Large Bubble) - 20% smaller
+      case 2: // Front (Prominent telemetry badge)
       default:
         return {
-          sizeClass: "text-xs py-1.5 px-3.5 font-medium", // height ~32px
-          opacity: 0.36, // 0.56 * 0.65
+          sizeClass: "text-[11px] sm:text-xs py-1.5 px-3.5 font-medium",
+          opacity: 0.96,
+          bgClass: "bg-[#080807]/90",
+          borderClass: "border-[#00698c]/45 hover:border-[#00698c]",
+          shadowClass: "shadow-[0_2px_12px_rgba(0,0,0,0.7)]",
           blurClass: "backdrop-blur-xl",
           zIndex: "z-[6]"
         };
@@ -153,14 +161,13 @@ function SkillBubble({
   }, [layer, smoothFarY, smoothMidY, smoothFrontY]);
 
   // Dynamic animations matching drag, hover and hover-glow states
-  // Faded shadow glow by 50%, borders by 30%, background shadows by 40%
   const borderGlow = isDragging
-    ? "border-[#00698c]/55 shadow-[0_0_6px_rgba(0,105,140,0.15)] bg-[#292823]/35 text-white"
+    ? "border-[#00698c] shadow-[0_0_14px_rgba(0,105,140,0.45)] bg-[#00698c]/20 text-white"
     : isHovered
-    ? "border-[#00698c]/35 shadow-[0_0_4px_rgba(0,105,140,0.10)] bg-[#292823]/25 text-white"
+    ? "border-[#00698c] shadow-[0_0_12px_rgba(0,105,140,0.30)] bg-[#00698c]/15 text-white"
     : isProximate
-    ? "border-white/14 shadow-[0_0_3px_rgba(0,105,140,0.04)] bg-[#292823]/15 text-[#d7d7d7]/90"
-    : "border-white/7 shadow-none bg-[#292823]/10 text-[#d7d7d7]/80";
+    ? "border-[#00698c]/50 shadow-[0_0_8px_rgba(0,105,140,0.15)] bg-[#292823]/40 text-white"
+    : cn(layerStyles.borderClass, layerStyles.bgClass, layerStyles.shadowClass, "text-[#d7d7d7]");
 
   return (
     <motion.div
@@ -194,26 +201,31 @@ function SkillBubble({
           shouldReduceMotion || isDragging
             ? {}
             : {
-                y: [0, device === "mobile" ? -0.8 : -2, 0], // Reduced floating distance by 50%
-                rotate: [-0.3, 0.3, -0.3], // Reduced rotation to ±0.3deg
+                y: [0, device === "mobile" ? -1.2 : -2.8, 0],
+                rotate: [-0.3, 0.3, -0.3],
               }
         }
         transition={{
           y: { duration: idleDuration, delay: idleDelay, repeat: Infinity, ease: "easeInOut" },
-          rotate: { duration: idleDuration * 1.2, delay: idleDelay, repeat: Infinity, ease: "easeInOut" },
+          rotate: { duration: idleDuration * 1.25, delay: idleDelay, repeat: Infinity, ease: "easeInOut" },
         }}
         className={cn(
-          "rounded-full border backdrop-blur-md cursor-grab active:cursor-grabbing font-mono transition-colors duration-300 relative",
+          "rounded-full border backdrop-blur-md cursor-grab active:cursor-grabbing font-mono transition-all duration-300 relative tracking-wide flex items-center justify-center whitespace-nowrap",
           layerStyles.sizeClass,
           layerStyles.blurClass,
           borderGlow
         )}
         whileDrag={{ scale: 1.08 }}
-        whileHover={{ scale: 1.01 }} // Hover scale reduced to 1.01
+        whileHover={{ scale: 1.02 }}
       >
-        {/* Inner glass highlights */}
-        <div className="absolute inset-px bg-gradient-to-tr from-white/[0.01] via-white/[0.04] to-transparent rounded-full pointer-events-none" />
-        <span style={{ opacity: isDragging ? 1.0 : isHovered ? 1.0 : layerStyles.opacity }}>
+        {/* Subtle glass specular highlight */}
+        <div className="absolute inset-px bg-gradient-to-tr from-white/[0.02] via-white/[0.05] to-transparent rounded-full pointer-events-none" />
+        <span
+          style={{
+            opacity: isDragging || isHovered || isProximate ? 1.0 : layerStyles.opacity,
+          }}
+          className="transition-opacity duration-200"
+        >
           {name}
         </span>
       </motion.div>
@@ -223,30 +235,26 @@ function SkillBubble({
 
 // Exactly 12 Visible Bubbles Total (No duplicates, no overlaps)
 // Positional areas map into Safe Zones away from text and the profile photo.
-// Photo boundaries on desktop lie within X: 58-100%, Y: 18-75%.
-// Top Right coordinates (Y: 5-9%) sit completely above the photo.
-// Bottom Right coordinates (Y: 85-94%) sit completely below the photo.
-// Center right is empty. Center-left text zone (X: 0-55%, Y: 20-80%) is clear.
-const skillsData = [
-  // --- TOP LEFT AREA --- (Whitespace above left column text, X: 4-22%, Y: 8-14%)
-  { name: "Python", cluster: "top-left", layer: 1, x: 4, y: 14, mobile: true, tablet: true },
-  { name: "FastAPI", cluster: "top-left", layer: 1, x: 22, y: 12, mobile: false, tablet: true },
+const floatingSkills = [
+  // TOP LEFT AREA
+  { name: "C / C++", cluster: "top-left", layer: 1, x: 4, y: 14, mobile: true, tablet: true },
+  { name: "Device Drivers", cluster: "top-left", layer: 1, x: 22, y: 12, mobile: false, tablet: true },
   { name: "Embedded Linux", cluster: "top-left", layer: 2, x: 12, y: 8, mobile: true, tablet: true },
 
-  // --- TOP RIGHT AREA --- (Whitespace above right column photo, X: 72-88%, Y: 5-9%)
-  { name: "Generative AI", cluster: "top-right", layer: 2, x: 88, y: 8, mobile: true, tablet: true },
-  { name: "Machine Learning", cluster: "top-right", layer: 2, x: 72, y: 9, mobile: false, tablet: true },
-  { name: "LLMs", cluster: "top-right", layer: 1, x: 80, y: 5, mobile: true, tablet: true },
+  // TOP RIGHT AREA
+  { name: "Edge AI", cluster: "top-right", layer: 2, x: 88, y: 8, mobile: true, tablet: true },
+  { name: "Computer Vision", cluster: "top-right", layer: 2, x: 72, y: 9, mobile: false, tablet: true },
+  { name: "Machine Learning", cluster: "top-right", layer: 1, x: 80, y: 5, mobile: true, tablet: true },
 
-  // --- BOTTOM LEFT AREA --- (Whitespace below left column CTAs, X: 6-20%, Y: 86-88%)
+  // BOTTOM LEFT AREA
   { name: "Firmware", cluster: "bottom-left", layer: 1, x: 6, y: 88, mobile: false, tablet: true },
-  { name: "Embedded C", cluster: "bottom-left", layer: 0, x: 20, y: 86, mobile: false, tablet: false },
+  { name: "RTOS", cluster: "bottom-left", layer: 0, x: 20, y: 86, mobile: false, tablet: false },
 
-  // --- BOTTOM RIGHT AREA --- (Whitespace below right column photo, X: 65-88%, Y: 85-94%)
-  { name: "IoT", cluster: "bottom-right", layer: 0, x: 65, y: 86, mobile: false, tablet: false },
-  { name: "Arduino", cluster: "bottom-right", layer: 0, x: 75, y: 92, mobile: false, tablet: true },
-  { name: "CAN Bus", cluster: "bottom-right", layer: 1, x: 88, y: 85, mobile: false, tablet: false },
-  { name: "Microcontrollers", cluster: "bottom-right", layer: 0, x: 84, y: 93, mobile: false, tablet: false },
+  // BOTTOM RIGHT AREA
+  { name: "ROS 2", cluster: "bottom-right", layer: 0, x: 65, y: 86, mobile: false, tablet: false },
+  { name: "Sensor Fusion", cluster: "bottom-right", layer: 0, x: 75, y: 92, mobile: false, tablet: true },
+  { name: "CAN / MAVLink", cluster: "bottom-right", layer: 1, x: 88, y: 85, mobile: false, tablet: false },
+  { name: "NVIDIA Jetson", cluster: "bottom-right", layer: 0, x: 84, y: 93, mobile: false, tablet: false },
 ];
 
 export default function HeroFloatingSkills() {
@@ -283,9 +291,9 @@ export default function HeroFloatingSkills() {
   }, []);
 
   // Filter skills proportionally:
-  // Desktop: 12 bubbles, Tablet: 8 bubbles (~70%), Mobile: 4 bubbles (~33%)
+  // Desktop: 12 bubbles, Tablet: 8 bubbles, Mobile: 4 bubbles
   const filteredSkills = useMemo(() => {
-    return skillsData.filter((skill) => {
+    return floatingSkills.filter((skill) => {
       if (device === "mobile") return skill.mobile;
       if (device === "tablet") return skill.tablet;
       return true;
@@ -298,6 +306,7 @@ export default function HeroFloatingSkills() {
         <SkillBubble
           key={skill.name}
           name={skill.name}
+          cluster={skill.cluster}
           layer={skill.layer}
           initialX={skill.x}
           initialY={skill.y}

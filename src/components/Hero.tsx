@@ -8,7 +8,7 @@ import { ArrowRight, SealCheck } from "@phosphor-icons/react";
 import HeroFloatingSkills from "./HeroFloatingSkills";
 
 // Professional photo location
-const PROFILE_PHOTO_PATH = "/199961.png";
+const PROFILE_PHOTO_PATH = "/satish.png";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -159,46 +159,37 @@ export default function Hero() {
           style={{ y: smoothTextY }}
           className="col-span-1 flex flex-col items-start text-left select-none order-2 lg:order-1 lg:pr-8 w-full"
         >
-          
-          {/* Status Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00698c]/15 border border-[#00698c]/25 mb-5 backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00698c] animate-pulse" />
-            <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-[#d7d7d7] uppercase font-semibold">
-              Available for Opportunities
-            </span>
-          </div>
-
           {/* H1 Name centerpiece */}
-          <h1 className="text-6xl sm:text-7xl md:text-[5.5rem] lg:text-[6.5rem] xl:text-[7.5rem] font-bold tracking-tighter leading-[0.85] text-white flex flex-col font-sans select-none mb-4">
-            <span className="text-[#d7d7d7] overflow-hidden flex flex-wrap gap-x-[1px]">
+          <h1 className="text-6xl sm:text-7xl md:text-[5.5rem] lg:text-[6.5rem] xl:text-[7.5rem] font-normal tracking-tight leading-[1.02] text-white flex flex-col font-rengok select-none mb-4 overflow-visible">
+            <span className="text-white overflow-visible flex flex-wrap gap-x-[2px] py-1">
               {"NAGALLA".split("").map((char, index) => (
                 <motion.span
                   key={index}
-                  initial={shouldReduceMotion ? { y: 0, opacity: 1, filter: "none" } : { y: "60%", opacity: 0, filter: "blur(6px)" }}
+                  initial={shouldReduceMotion ? { y: 0, opacity: 1, filter: "none" } : { y: 24, opacity: 0, filter: "blur(6px)" }}
                   animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     duration: 0.8,
                     delay: index * 0.04,
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="inline-block origin-bottom"
+                  className="inline-block origin-bottom overflow-visible"
                 >
                   {char}
                 </motion.span>
               ))}
             </span>
-            <span className="text-white overflow-hidden flex flex-wrap gap-x-[1px]">
+            <span className="text-white overflow-visible flex flex-wrap gap-x-[2px] py-1">
               {"SATISH".split("").map((char, index) => (
                 <motion.span
                   key={index}
-                  initial={shouldReduceMotion ? { y: 0, opacity: 1, filter: "none" } : { y: "60%", opacity: 0, filter: "blur(6px)" }}
+                  initial={shouldReduceMotion ? { y: 0, opacity: 1, filter: "none" } : { y: 24, opacity: 0, filter: "blur(6px)" }}
                   animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     duration: 0.8,
                     delay: 0.2 + index * 0.04,
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="inline-block origin-bottom"
+                  className="inline-block origin-bottom overflow-visible"
                 >
                   {char}
                 </motion.span>
@@ -210,7 +201,7 @@ export default function Hero() {
 
           {/* Concise intro copy */}
           <p className="text-sm md:text-base text-[#d7d7d7]/85 font-light leading-relaxed mb-4 max-w-[55ch]">
-            Building intelligent systems across AI, Embedded Computing, Full Stack Development, and Web3 technologies.
+            Bridging AI and hardware to build intelligent, efficient, and autonomous Edge Computing systems.
           </p>
 
           {/* Education telemetry highlight */}

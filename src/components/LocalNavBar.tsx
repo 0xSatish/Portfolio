@@ -28,10 +28,10 @@ export default function LocalNavBar() {
 
   const navLinks = [
     { label: "About", href: "#hero" },
+    { label: "Journey", href: "#journey" },
     { label: "Expertise", href: "#expertise" },
-    { label: "Products", href: "#projects" },
+    { label: "Projects", href: "#projects" },
     { label: "Specifications", href: "#specs" },
-    { label: "Experience", href: "#journey" },
     { label: "Contact", href: "#contact" },
   ];
 

@@ -14,8 +14,8 @@ export default function TechSpecs() {
       id: "01",
       title: "Embedded Systems",
       skills: [
-        "Embedded C",
-        "Arduino",
+        "Embedded C/C++",
+        "Arduino / Jetson nano",
         "GPIO / UART",
         "SPI / I2C",
         "Intel 8085/8086 Assembly",
@@ -120,7 +120,7 @@ export default function TechSpecs() {
       ]
     }
   ];
-  
+
   return (
     <section id="specs" className="py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-white/5">
       <motion.div
@@ -143,7 +143,7 @@ export default function TechSpecs() {
           <GlassCard className="p-6 text-center cursor-default" spotlightColor="rgba(0, 105, 140, 0.08)">
             <span className="block font-mono text-[9px] text-[#00698c] uppercase tracking-wider mb-2">SYSTEMS REGISTERED</span>
             <span className="text-3xl sm:text-4xl font-mono font-bold text-white block">
-              <Counter value={13} suffix="" />
+              <Counter value={16} suffix="" />
             </span>
             <span className="text-xs text-[#d7d7d7]/50 font-light mt-1 block">Autonomous Builds</span>
           </GlassCard>
@@ -180,7 +180,7 @@ export default function TechSpecs() {
 
         {/* Part 1: Core Performance Metrics - 2-Column Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 w-full">
-          
+
           <GlassCard className="p-6 md:p-8 cursor-default" spotlightColor="rgba(0,105,140,0.06)">
             <div className="flex items-start gap-4 select-none">
               <div className="w-12 h-12 rounded-2xl bg-[#00698c]/10 flex items-center justify-center text-[#00698c] shrink-0">

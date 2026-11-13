@@ -21,7 +21,7 @@ export default function BentoPillars() {
             Core Disciplines
           </h2>
           <p className="text-base md:text-lg text-[#d7d7d7]/85 font-light leading-relaxed">
-            Merging hardware precision with software intelligence and decentralized execution to construct end-to-end autonomous solutions.
+            Engineering intelligent systems at the intersection of Edge AI, Embedded Computing, Firmware, and Autonomous Technologies.
           </p>
         </div>
 
@@ -30,7 +30,8 @@ export default function BentoPillars() {
           
           {/* Cell 1: Embedded Systems (ECE) - Spans 2 Columns (Full Width) */}
           <GlassCard
-            className="md:col-span-2 p-8 min-h-[300px] flex flex-col justify-between group cursor-default"
+            wrapperClassName="md:col-span-2"
+            className="p-8 min-h-[300px] flex flex-col justify-between group cursor-default"
             spotlightColor="rgba(215, 215, 215, 0.04)"
             delay={0}
           >
@@ -51,13 +52,24 @@ export default function BentoPillars() {
                     Embedded Systems & Electronics
                   </h3>
                   <p className="text-sm md:text-base text-[#d7d7d7]/80 font-light leading-relaxed mb-6">
-                    Built bare-metal firmware using Embedded C, interfaced sensors with Arduino microcontrollers, and worked with Intel 8085/8086 microprocessors. Familiar with register-level programming, GPIO, UART, SPI, I2C, interrupts, timers, and RTOS fundamentals.
+                    Building intelligent embedded systems at the intersection of Edge AI, Embedded Linux, firmware, and hardware-software integration. Developing low-level software and hardware-integrated applications using C, C++, and Python across embedded platforms. Working with microcontrollers, device drivers, peripheral interfaces, real-time computing, and edge-based AI deployment to develop efficient, reliable, and intelligent computing systems.
                   </p>
                 </div>
                 
                 {/* Hardware Spec Tags */}
                 <div className="flex flex-wrap gap-2">
-                  {["Embedded C", "Microcontrollers", "Intel 8085 / 8086", "GPIO / UART / SPI / I2C", "RTOS Basics", "Assembly Programming"].map((tag) => (
+                  {[
+                    "Edge AI",
+                    "Embedded C/C++",
+                    "Embedded Linux",
+                    "Firmware Development",
+                    "Physical AI",
+                    "Microcontrollers",
+                    "Device Drivers",
+                    "RTOS",
+                    "Hardware-Software Integration",
+                    "Real-Time Computing",
+                  ].map((tag) => (
                     <span key={tag} className="px-2.5 py-1 text-[10px] font-mono bg-white/[0.03] text-[#d7d7d7]/70 rounded border border-white/5">
                       {tag}
                     </span>

@@ -27,7 +27,7 @@ A modern portfolio website built with Next.js, TypeScript, Tailwind CSS, and Fra
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/satish05112003/Portfolio.git
+git clone https://github.com/0xSatish/Portfolio.git
 cd Portfolio
 ```
 
